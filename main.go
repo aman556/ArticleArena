@@ -17,7 +17,7 @@ func main() {
 	// my_scheduler.StartBlocking()
 
 	router := gin.Default()
-	router.GET("/geeksforgeeksUserInfo", GetGeeksforGeeksUserInfo)
+	router.GET("/geeksforgeeksUserInfo/:userid", GetGeeksforGeeksUserInfo)
 	router.GET("/mediumUserInfo", GetMediumUserInfo)
 
 	router.Run("localhost:8081")
