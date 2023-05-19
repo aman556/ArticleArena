@@ -8,6 +8,6 @@ import (
 )
 
 func GetGeeksforGeeksUserInfo(c *gin.Context) {
-
-	c.IndentedJSON(http.StatusOK, GeeksForGeeksUserDataScarpping("https://auth.geeksforgeeks.org/user/aman55/articles#"))
+	url := "https://auth.geeksforgeeks.org/user/" + c.Param("userid") + "/articles#"
+	c.IndentedJSON(http.StatusOK, GeeksForGeeksUserDataScarpping(url))
 }
