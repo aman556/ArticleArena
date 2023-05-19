@@ -1,6 +1,10 @@
 package utils
 
-import "github.com/gocolly/colly"
+import (
+	"fmt"
+
+	"github.com/gocolly/colly"
+)
 
 func ArticleDataSinglePage(userPayload UserPayload) []Article {
 	var artilceUtil []Article
@@ -14,6 +18,12 @@ func ArticleDataSinglePage(userPayload UserPayload) []Article {
 		artilceUtil = append(artilceUtil, localArticle)
 	})
 
+	c.OnResponse(func(r *colly.Response) {
+		fmt.Println(r.StatusCode)
+	})
+	c.OnRequest(func(r *colly.Request) {
+		fmt.Println("Visiting", r.URL)
+	})
 	c.Visit(userPayload.Url)
 	return artilceUtil
 }

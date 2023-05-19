@@ -1,15 +1,15 @@
-package geeksforgeeks
+package geeksforgeeksScrapper
 
 import (
 	. "github.com/aman556/ArticleArena/scrapper/utils"
 )
 
-var ChildLinkQuery = []string{`a`, "href"}
+var childLinkQuery = []string{`a`, "href"}
 var geeksforgeeksPayload = UserPayload{
 	Url:             "",
 	ParentQuery:     `div[class="card-content black-text"]`,
 	ChildTitleQuery: `a`,
-	ChildLinkQuery:  ChildLinkQuery,
+	ChildLinkQuery:  childLinkQuery,
 }
 
 func GeeksForGeeksUserDataScarpping(url string) User {

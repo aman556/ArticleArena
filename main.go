@@ -1,20 +1,24 @@
 package main
 
 import (
-	"fmt"
 
-	. "github.com/aman556/ArticleArena/scrapper/Geeksforgeeks"
-	. "github.com/aman556/ArticleArena/scrapper/medium"
+	//"github.com/go-co-op/gocron"
+
+	. "github.com/aman556/ArticleArena/handler/Geeksforgeeks"
+	. "github.com/aman556/ArticleArena/handler/medium"
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	geeksforgeeksUserInfo := GeeksForGeeksUserDataScarpping("https://auth.geeksforgeeks.org/user/aman55/articles#")
+	//my_scheduler := gocron.NewScheduler(time.UTC)
 
-	fmt.Println(geeksforgeeksUserInfo.ArticleCount)
-	fmt.Println(geeksforgeeksUserInfo.ArticleData)
+	// my_scheduler.Every(5).Seconds().Do(GeeksForGeeksUserDataScarpping("https://auth.geeksforgeeks.org/user/aman55/articles#"))
+	// my_scheduler.Every(5).Seconds().Do(MediumUserDataScarpping("https://medium.com/@ChindaVibhor"))
+	// my_scheduler.StartBlocking()
 
-	mediumUserInfo := MediumUserDataScarpping("https://medium.com/@ChindaVibhor")
+	router := gin.Default()
+	router.GET("/geeksforgeeksUserInfo", GetGeeksforGeeksUserInfo)
+	router.GET("/mediumUserInfo", GetMediumUserInfo)
 
-	fmt.Println(mediumUserInfo.ArticleCount)
-	fmt.Println(mediumUserInfo.ArticleData)
+	router.Run("localhost:8081")
 }

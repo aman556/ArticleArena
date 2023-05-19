@@ -1,4 +1,4 @@
-package maedium
+package mediumScrapper
 
 import (
 	. "github.com/aman556/ArticleArena/scrapper/utils"
