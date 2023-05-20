@@ -3,7 +3,7 @@ package mediumhandler
 import (
 	"net/http"
 
-	. "github.com/aman556/ArticleArena/scrapper/medium"
+	. "github.com/aman556/ArticleArena/backend/scrapper/medium"
 	"github.com/gin-gonic/gin"
 )
 

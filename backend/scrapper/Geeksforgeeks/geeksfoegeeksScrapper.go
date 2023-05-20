@@ -1,7 +1,7 @@
 package geeksforgeeksScrapper
 
 import (
-	. "github.com/aman556/ArticleArena/scrapper/utils"
+	. "github.com/aman556/ArticleArena/backend/scrapper/utils"
 )
 
 var childLinkQuery = []string{`a`, "href"}

@@ -4,8 +4,8 @@ import (
 
 	//"github.com/go-co-op/gocron"
 
-	. "github.com/aman556/ArticleArena/handler/Geeksforgeeks"
-	. "github.com/aman556/ArticleArena/handler/medium"
+	. "github.com/aman556/ArticleArena/backend/handler/Geeksforgeeks"
+	. "github.com/aman556/ArticleArena/backend/handler/medium"
 	"github.com/gin-gonic/gin"
 )
 
