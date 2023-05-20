@@ -3,7 +3,7 @@ package geeksforgeekshandler
 import (
 	"net/http"
 
-	. "github.com/aman556/ArticleArena/scrapper/Geeksforgeeks"
+	. "github.com/aman556/ArticleArena/backend/scrapper/Geeksforgeeks"
 	"github.com/gin-gonic/gin"
 )
 

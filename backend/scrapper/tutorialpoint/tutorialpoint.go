@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strconv"
 
-	. "github.com/aman556/ArticleArena/scrapper/utils"
+	. "github.com/aman556/ArticleArena/backend/scrapper/utils"
 
 	"github.com/gocolly/colly"
 )
