@@ -1,11 +1,11 @@
 import React, { FunctionComponent } from "react";
-import { Box, Button, TextField } from "@mui/material";
-import clsx from "clsx";
 
+import ArticleCard from "../ArticleCard";
+import { UserArticles } from "../../models/Articles";
 import useStyles from "./styles";
 
 interface IArticleList {
-  articlesList: Array<String>;
+  articlesList: UserArticles;
 }
 
 const ArticleList: FunctionComponent<IArticleList> = (props: IArticleList) => {
@@ -13,8 +13,8 @@ const ArticleList: FunctionComponent<IArticleList> = (props: IArticleList) => {
 
   return (
     <>
-      {props.articlesList.map((item) => (
-        <h2>{item}</h2>
+      {props.articlesList?.ArticleData?.map((item) => (
+        <ArticleCard name={item.ArticleTitle} link={item.ArtilceLink} />
       ))}
     </>
   );
