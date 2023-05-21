@@ -4,21 +4,13 @@ import (
 
 	//"github.com/go-co-op/gocron"
 
-	. "github.com/aman556/ArticleArena/backend/handler/Geeksforgeeks"
-	. "github.com/aman556/ArticleArena/backend/handler/medium"
+	. "github.com/aman556/ArticleArena/backend/controller"
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	//my_scheduler := gocron.NewScheduler(time.UTC)
-
-	// my_scheduler.Every(5).Seconds().Do(GeeksForGeeksUserDataScarpping("https://auth.geeksforgeeks.org/user/aman55/articles#"))
-	// my_scheduler.Every(5).Seconds().Do(MediumUserDataScarpping("https://medium.com/@ChindaVibhor"))
-	// my_scheduler.StartBlocking()
-
 	router := gin.Default()
-	router.GET("/geeksforgeeksUserInfo/:userid", GetGeeksforGeeksUserInfo)
-	router.GET("/mediumUserInfo", GetMediumUserInfo)
+	router.GET("/profile/:userid", GetUserArticlesData)
 
 	router.Run("localhost:8081")
 }

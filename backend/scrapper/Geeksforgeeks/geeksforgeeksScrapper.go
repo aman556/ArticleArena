@@ -12,12 +12,12 @@ var geeksforgeeksPayload = UserPayload{
 	ChildLinkQuery:  childLinkQuery,
 }
 
-func GeeksForGeeksUserDataScarpping(url string) User {
-	var userInfo User
+func GeeksForGeeksUserArticleDataScarpping(url string) ArticleData {
+	var articleInfo ArticleData
 	geeksforgeeksPayload.Url = url
 
-	userInfo.ArticleData = ArticleDataSinglePage(geeksforgeeksPayload)
-	userInfo.ArticleCount = len(userInfo.ArticleData)
+	articleInfo.ArticleList = ArticleDataSinglePage(geeksforgeeksPayload)
+	articleInfo.ArticleCount = len(articleInfo.ArticleList)
 
-	return userInfo
+	return articleInfo
 }
