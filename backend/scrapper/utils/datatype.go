@@ -1,16 +1,15 @@
 package utils
 
-type Article struct {
+type ArticleList struct {
 	ArticleTitle string
 	ArtilceLink  string
 	//articleLikeCount  int
 	//articleViewsCount int
 }
 
-type User struct {
-	//userName     string
+type ArticleData struct {
 	ArticleCount int
-	ArticleData  []Article
+	ArticleList  []ArticleList
 }
 
 type UserPayload struct {
@@ -18,4 +17,9 @@ type UserPayload struct {
 	ParentQuery     string
 	ChildTitleQuery string
 	ChildLinkQuery  []string
+}
+
+type AllArticles struct {
+	ArticleSite      string
+	ArticlesSiteData ArticleData
 }

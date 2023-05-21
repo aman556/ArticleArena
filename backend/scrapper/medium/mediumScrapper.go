@@ -1,7 +1,7 @@
 package mediumScrapper
 
 import (
-	. "github.com/aman556/ArticleArena/scrapper/utils"
+	. "github.com/aman556/ArticleArena/backend/scrapper/utils"
 )
 
 var childLinkQuery = []string{`a[class="af ag ah ai aj ak al am an ao ap aq ar as at"]`, "href"}
@@ -12,12 +12,12 @@ var mediumPayload = UserPayload{
 	ChildLinkQuery:  childLinkQuery,
 }
 
-func MediumUserDataScarpping(url string) User {
-	var userInfo User
+func MediumUserDataScarpping(url string) ArticleData {
+	var articleInfo ArticleData
 	mediumPayload.Url = url
 
-	userInfo.ArticleData = ArticleDataSinglePage(mediumPayload)
-	userInfo.ArticleCount = len(userInfo.ArticleData)
+	articleInfo.ArticleList = ArticleDataSinglePage(mediumPayload)
+	articleInfo.ArticleCount = len(articleInfo.ArticleList)
 
-	return userInfo
+	return articleInfo
 }

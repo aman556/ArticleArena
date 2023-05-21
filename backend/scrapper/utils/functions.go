@@ -6,12 +6,12 @@ import (
 	"github.com/gocolly/colly"
 )
 
-func ArticleDataSinglePage(userPayload UserPayload) []Article {
-	var artilceUtil []Article
+func ArticleDataSinglePage(userPayload UserPayload) []ArticleList {
+	var artilceUtil []ArticleList
 	c := colly.NewCollector()
 
 	c.OnHTML(userPayload.ParentQuery, func(e *colly.HTMLElement) {
-		var localArticle Article
+		var localArticle ArticleList
 		localArticle.ArticleTitle = e.ChildText(userPayload.ChildTitleQuery)
 		localArticle.ArtilceLink = e.Request.AbsoluteURL(e.ChildAttr(userPayload.ChildLinkQuery[0], userPayload.ChildLinkQuery[1]))
 
