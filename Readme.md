@@ -1,5 +1,25 @@
-- Using deployments we will update the docker image with latest version whenever we make any changes in the code then github action will build an image and push to production the the kubernetes deplyment object will update in production
+# ArticleArena
 
-- Scheduler https://oxylabs.io/blog/golang-web-scraper
+## Introduction
 
-- https://benjamincongdon.me/blog/2018/03/01/Scraping-the-Web-in-Golang-with-Colly-and-Goquery/ learn Goquery for advance search
+ArticleArena is a website where content writers create profile and add there user handle of all the sites where they write articles. ArticleArena profile page will show all the article list, count and things like count of likes.
+
+There will be a Leaderboard page of all the registered users. The ranking will be decided on the basis of an algorithm.
+
+## Tech stack
+
+- The devlopment of the site is currently using two languages. `React` for frontend and `golang` for backend.
+- Repository structure
+  ```
+  .
+  ├── Makefile
+  ├── Readme.md
+  ├── backend
+  └── frontend
+  ```
+
+## How to run backend server
+- [Install Golang](https://go.dev/doc/install)
+- Change directory to backend
+- Run `go run main.go`
+- Backend server will start running at `localhost:8081`
