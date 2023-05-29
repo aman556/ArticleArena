@@ -12,5 +12,5 @@ func main() {
 	router := gin.Default()
 	router.GET("/profile/:userid", GetUserArticlesData)
 
-	router.Run("localhost:8081")
+	router.Run(":8010")
 }

@@ -22,6 +22,5 @@ run-server: ## Build and run server
 	cd backend && $(GO) build -a -o ./bin/articleArena-server && bin/articleArena-server
 
 .PHONY: build server image & pushes to registry
-build-server-image: build-server # Build docker image for backend
-	docker build --platform=linux/amd64 --tag ${PROJECT}:$(release-tag) backend
-	docker push ${PROJECT}:$(release-tag)
+build-server-image: # Build docker image for backend
+	docker build --platform=linux/amd64 --tag ${PROJECT}:$(release-tag) backend && docker push ${PROJECT}:$(release-tag)
