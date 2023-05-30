@@ -1,0 +1,25 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-server-deployment-article-arena
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend-server-article-arena
+  template:
+    metadata:
+      labels:
+        app: backend-server-article-arena
+    spec:
+      containers:
+        - name: backend-server-article-arena-container
+          image: aman55/articlearena:v2.0.2
+          imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 8081
