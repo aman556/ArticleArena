@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	. "github.com/aman556/ArticleArena/backend/controller/Geeksforgeeks"
-	. "github.com/aman556/ArticleArena/backend/controller/Medium"
+	. "github.com/aman556/ArticleArena/backend/controller/medium"
 	. "github.com/aman556/ArticleArena/backend/scrapper/utils"
 	"github.com/gin-gonic/gin"
 )
