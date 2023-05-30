@@ -19,4 +19,6 @@ WORKDIR /usr/app/
 
 COPY --from=builder /go/src/app/bin .
 
+EXPOSE 8081
+
 ENTRYPOINT ["./articleArena-server"]
