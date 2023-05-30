@@ -15,7 +15,8 @@ spec:
     spec:
       containers:
         - name: backend-server-article-arena-container
-          image: aman55/articlearena:v1.0.8
+          image: aman55/articlearena:v2.0.2
+          imagePullPolicy: IfNotPresent
           resources:
             limits:
               memory: "128Mi"

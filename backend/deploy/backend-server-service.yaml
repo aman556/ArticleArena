@@ -8,8 +8,7 @@ spec:
     app: backend-server-article-arena
   type: NodePort
   ports:
-    - port: 8081
+    - name: http
+      port: 8081
       targetPort: 8081
-      # Optional field
-      # By default and for convenience, the Kubernetes control plane will allocate a port from a range (default: 30000-32767)
       nodePort: 30006
