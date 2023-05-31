@@ -1,0 +1,51 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-server-deployment-article-arena
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend-server-article-arena
+  template:
+    metadata:
+      labels:
+        app: backend-server-article-arena
+    spec:
+      containers:
+        - name: backend-server-article-arena-container
+          image: aman55/articlearena:v2.0.7
+          imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 8081
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: ROOT_PASSWORD
+                  name: databasesecret
+            - name: SERVICE_NAME
+              valueFrom:
+                configMapKeyRef:
+                  key: servicename
+                  name: article-arena-cm
+            - name: CONFIG_DBNAME
+              valueFrom:
+                configMapKeyRef:
+                  key: dbname
+                  name: article-arena-cm
+            - name: CONFIG_DBUSER
+              valueFrom:
+                configMapKeyRef:
+                  key: dbuser
+                  name: article-arena-cm
+            - name: CONFIG_DBHOST_PORT
+              valueFrom:
+                configMapKeyRef:
+                  key: dbhostport
+                  name: article-arena-cm

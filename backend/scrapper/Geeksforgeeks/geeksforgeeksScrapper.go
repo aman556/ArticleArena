@@ -5,7 +5,7 @@ import (
 )
 
 var childLinkQuery = []string{`a`, "href"}
-var geeksforgeeksPayload = UserPayload{
+var geeksforgeeksPayload = ArticlePayload{
 	Url:             "",
 	ParentQuery:     `div[class="card-content black-text"]`,
 	ChildTitleQuery: `a`,

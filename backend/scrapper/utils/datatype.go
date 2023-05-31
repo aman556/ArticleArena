@@ -12,7 +12,7 @@ type ArticleData struct {
 	ArticleList  []ArticleList
 }
 
-type UserPayload struct {
+type ArticlePayload struct {
 	Url             string
 	ParentQuery     string
 	ChildTitleQuery string

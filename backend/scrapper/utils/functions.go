@@ -6,7 +6,7 @@ import (
 	"github.com/gocolly/colly"
 )
 
-func ArticleDataSinglePage(userPayload UserPayload) []ArticleList {
+func ArticleDataSinglePage(userPayload ArticlePayload) []ArticleList {
 	var artilceUtil []ArticleList
 	c := colly.NewCollector()
 
