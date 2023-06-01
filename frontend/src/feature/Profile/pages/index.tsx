@@ -1,10 +1,20 @@
 import React from 'react';
+import UserCard from '../components/UserCard';
+import { Box } from '@mui/material';
+import useStyles from './styles';
 
 const Profile: React.FC = () => {
+  const styles = useStyles();
+
   return (
-    <>
-      <h2>Profile Page</h2>
-    </>
+    <Box className={styles.container}>
+      <UserCard
+        name={'Kartikay Sharma'}
+        address={'San Francisco, CA'}
+        designation={'Full Stack Developer'}
+      />
+      {/* <UserCard /> */}
+    </Box>
   );
 };
 
