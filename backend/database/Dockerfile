@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 mysql:5.6
+FROM --platform=linux/amd64 mysql:latest
 
 ENV MYSQL_DATABASE articlearenadb
 

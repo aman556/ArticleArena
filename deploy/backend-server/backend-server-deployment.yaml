@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: backend-server-article-arena-container
-          image: aman55/articlearena:v2.0.7
+          image: aman55/articlearena:v2.0.8
           imagePullPolicy: IfNotPresent
           resources:
             limits:

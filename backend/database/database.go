@@ -6,6 +6,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 
 	. "github.com/aman556/ArticleArena/backend/database/DAO"
+	. "github.com/aman556/ArticleArena/backend/utils"
 )
 
 var globaldb *sql.DB
@@ -24,6 +25,14 @@ func InitDB() {
 	globaldb = db
 }
 
-func AddUserHandleInDB() {
+func AddUserHandleInDB(userData User) {
+	query := "INSERT INTO Users VALUES (" + userData.Name + "," + userData.ArticleArenaHandle + "," + userData.UserHandleList[0].WebsiteHandle + "," + userData.UserHandleList[0].WebsiteHandle + ")"
+	insert, err := globaldb.Query(query)
 
+	// if there is an error inserting, handle it
+	if err != nil {
+		panic(err.Error())
+	}
+	// be careful deferring Queries if you are using transactions
+	defer insert.Close()
 }

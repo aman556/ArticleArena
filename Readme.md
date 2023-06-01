@@ -19,6 +19,7 @@ There will be a Leaderboard page of all the registered users. The ranking will b
   ```
 
 ## How to run backend server
+
 - [Install Golang](https://go.dev/doc/install)
 - Change directory to backend
 - Run `go run main.go`

@@ -17,7 +17,7 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
         - name: mysql
-          image: aman55/articlearenadb:v1.0.0
+          image: aman55/articlearenadb:v1.0.1
           ports:
             - name: tpc
               protocol: TCP
