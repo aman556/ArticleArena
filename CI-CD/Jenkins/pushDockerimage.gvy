@@ -8,7 +8,9 @@ node {
     }
 
     stage('Build image') {
-       sh 'cd backend' 
+       app.inside { 
+           sh 'cd backend' 
+       }
        app = docker.build("aman55/articlearena")
     }
 
