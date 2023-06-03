@@ -7,11 +7,11 @@ node {
         checkout scm
     }
 
-    stage('change directory') {
-        app.inside { 
-           sh 'cd backend' 
-       }
-    }
+    // stage('change directory') {
+    //     app.inside { 
+    //        sh 'cd backend' 
+    //    }
+    // }
 
     stage('Build image') {
        
