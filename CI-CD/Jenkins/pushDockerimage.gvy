@@ -9,7 +9,7 @@ node {
         sh "ls" 
         sh "cd backend" 
         sh "ls"  
-        app = docker.build("aman55/articlearena")
+        app = docker.build("aman55/articlearena","backend")
     }
 
     stage('Push image') {
