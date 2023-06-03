@@ -13,7 +13,7 @@ node {
     }
 
     stage('Push image') {
-        docker.withRegistry('https://hub.docker.com/repository/docker/aman55/articlearena', 'dockerhub') {
+        docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
             app.push("${env.BUILD_NUMBER}")
         }
     }
