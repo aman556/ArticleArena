@@ -5,11 +5,8 @@ node {
         checkout scm
     }
 
-    stage('Change Directory') {
-        sh "cd backend"
-    }
-
-    stage('Build image') {   
+    stage('Build image') { 
+        sh "cd backend"  
         app = docker.build("aman55/articlearena")
     }
 
