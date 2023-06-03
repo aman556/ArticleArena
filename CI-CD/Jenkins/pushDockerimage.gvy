@@ -5,8 +5,10 @@ node {
         checkout scm
     }
 
-    stage('Build image') { 
-        sh "cd backend"  
+    stage('Build image') {
+        sh "ls" 
+        sh "cd backend" 
+        sh "ls"  
         app = docker.build("aman55/articlearena")
     }
 
