@@ -13,7 +13,12 @@ node {
     }
 
     stage('Push image') {
+        withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+			usr = USERNAME
+			pswd = PASSWORD
+		}
         docker.withRegistry('https://hub.docker.com/', 'dockerhub') {
+            sh "docker login -u ${USERNAME} -p ${PASSWORD}"
             app.push("${env.BUILD_NUMBER}")
         }
     }
