@@ -3,7 +3,7 @@ name: Build and Publish Docker image
 
 on:
   push:
-    branches: ['CI-CD-Branch']
+    branches: ['github-action-CI-CD']
 
 jobs:
   push_to_registry:
