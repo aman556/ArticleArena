@@ -10,7 +10,7 @@ import (
 
 func main() {
 	router := gin.Default()
-	// testing
+	// testing on main
 	router.GET("/profile/:userid", GetUserArticlesData)
 
 	router.Run(":8081")
