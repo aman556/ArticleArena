@@ -3,7 +3,11 @@ name: Build and Publish Docker image
 
 on:
   push:
-    branches: ['github-action-CI-CD']
+    branches:
+      - main
+    types: [closed]
+    paths:
+      - "backend/*"
 
 jobs:
   push_to_registry:
