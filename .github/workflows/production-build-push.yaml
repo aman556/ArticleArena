@@ -12,6 +12,7 @@ on:
 jobs:
   push_to_registry:
     name: Build and Push Docker image to Docker Hub
+    if: (!(github.event.action == 'closed' && github.event.pull_request.merged != true))
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
