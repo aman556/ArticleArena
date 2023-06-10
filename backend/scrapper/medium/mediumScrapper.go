@@ -5,7 +5,7 @@ import (
 )
 
 var childLinkQuery = []string{`a[class="af ag ah ai aj ak al am an ao ap aq ar as at"]`, "href"}
-var mediumPayload = UserPayload{
+var mediumPayload = ArticlePayload{
 	Url:             "",
 	ParentQuery:     `article`,
 	ChildTitleQuery: `h2`,

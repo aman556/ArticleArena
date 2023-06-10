@@ -1,0 +1,43 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: articlearenadb-statefulset
+spec:
+  replicas: 2
+  serviceName: articlearenadb
+  selector:
+    matchLabels:
+      app: articlearenadb
+  template:
+    metadata:
+      labels:
+        app: articlearenadb
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: mysql
+          image: aman55/articlearenadb:v1.0.1
+          ports:
+            - name: tpc
+              protocol: TCP
+              containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: ROOT_PASSWORD
+                  name: databasesecret
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/mysql
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        storageClassName: standard
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi

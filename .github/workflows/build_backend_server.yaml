@@ -1,0 +1,16 @@
+---
+name: Build - Backend server on file change
+on:
+  push:
+    branches:
+      - main
+    types: [closed]
+    paths:
+      - "backend/*"
+
+jobs:
+  build:
+    name: "Building backend server image"
+      if: (!(github.event.action == 'closed' && github.event.pull_request.merged != true))
+      runs-on: ubuntu-latest
+      
