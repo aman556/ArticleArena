@@ -15,8 +15,9 @@ func init() {
 
 func main() {
 	router := gin.Default()
-	//router.GET("/profile/:userid/get", GetUserArticlesData)
-	router.POST("/profile/:userid/post", PostUserHandle)
+	router.GET("/profile/:userid/get", GetUserArticlesData)
+	// testing again again again again again again again test
+	//router.POST("/profile/:userid/post", PostUserHandle)
 
 	router.Run(":8081")
 }
