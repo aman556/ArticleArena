@@ -6,10 +6,10 @@ import (
 
 	"net/http"
 
-	//. "github.com/aman556/ArticleArena/backend/database"
+	. "github.com/aman556/ArticleArena/backend/database"
 	. "github.com/aman556/ArticleArena/backend/scrapper/utils"
 
-	// . "github.com/aman556/ArticleArena/backend/utils"
+	. "github.com/aman556/ArticleArena/backend/utils"
 	"github.com/gin-gonic/gin"
 )
 
@@ -24,12 +24,10 @@ func GetUserArticlesData(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, allArticlesData)
 }
 
-// func PostUserHandle(c *gin.Context) {
-// 	var userData User
-// 	userData.Name = "Aman Sharma"
-// 	userData.ArticleArenaHandle = "aman"
-// 	userData.UserHandleList = append(userData.UserHandleList, UserHandle{WebsiteName: "Geeksforgeeks", WebsiteHandle: "aman55"})
-// 	userData.UserHandleList = append(userData.UserHandleList, UserHandle{WebsiteName: "Medium", WebsiteHandle: "amansharma14041998"})
-
-// 	AddUserHandleInDB(userData)
-// }
+func PostUserHandle(c *gin.Context) {
+	var userData User
+	if err := c.BindJSON(&userData); err != nil {
+		return
+	}
+	AddUserHandleInDB(userData)
+}
