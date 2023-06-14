@@ -25,7 +25,7 @@ func InitDB() {
 
 func AddUserHandleInDB(userData User) {
 	query := "INSERT INTO `Users` (`UserName`, `ArticleArenaHandle`, `GeeksforgeeksHandle`, `MediumHandle`, `TutorialpointHandle`) VALUES(?,?,?,?,?)"
-	insert, err := globaldb.Query(query, userData.Name, userData.ArticleArenaHandle, userData.UserHandleList[0].WebsiteHandle, userData.UserHandleList[1].WebsiteHandle, "")
+	insert, err := globaldb.Query(query, userData.Name, userData.ArticleArenaHandle, userData.UserHandleList[0].WebsiteHandle, userData.UserHandleList[1].WebsiteHandle, userData.UserHandleList[2].WebsiteHandle)
 
 	// if there is an error inserting, handle it
 	if err != nil {

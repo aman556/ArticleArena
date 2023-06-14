@@ -12,8 +12,8 @@ import (
 func main() {
 	database.InitDB()
 	router := gin.Default()
-	router.GET("/profile/:userid/get", GetUserArticlesData)
-	router.POST("/profile/postUserHandle", PostUserHandle)
+	router.GET("/profile/:userid/getArticles", GetUserArticlesData)
+	router.POST("/profile/:userid/postUserHandle", PostUserHandle)
 
 	router.Run(":8081")
 }

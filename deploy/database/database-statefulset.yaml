@@ -4,7 +4,7 @@ kind: StatefulSet
 metadata:
   name: articlearenadb-statefulset
 spec:
-  replicas: 2
+  replicas: 1
   serviceName: articlearenadb
   selector:
     matchLabels:
@@ -15,9 +15,9 @@ spec:
         app: articlearenadb
     spec:
       terminationGracePeriodSeconds: 10
-      initContainers:
+      containers:
         - name: mysql
-          image: aman55/articlearenadb:v5.0.2
+          image: aman55/articlearenadb:v1.0.0
           ports:
             - name: tpc
               protocol: TCP
