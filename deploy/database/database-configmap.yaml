@@ -1,10 +1,20 @@
 ---
 apiVersion: v1
 data:
-  dbname: article_arena_db
+  dbname: articlearenadatabase
   dbuser: root
   dbhostport: "3306"
-  servicename: articlearenadb
+  servicename: articlearenadb-svc
+  primary.cnf: |
+    # Apply this config only on the primary.
+    [mysqld]
+    log-bin
+    datadir=/var/lib/mysql   
+  replica.cnf: |
+    # Apply this config only on replicas.
+    [mysqld]
+    super-read-only
+    datadir=/var/lib/mysql
 kind: ConfigMap
 metadata:
   creationTimestamp: null

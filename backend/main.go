@@ -9,15 +9,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func init() {
-	database.InitDB()
-}
-
 func main() {
+	database.InitDB()
 	router := gin.Default()
-	router.GET("/profile/:userid/get", GetUserArticlesData)
-	// testing again again again again again again again test
-	//router.POST("/profile/:userid/post", PostUserHandle)
+	router.GET("/profile/:userid/getArticles", GetUserArticlesData)
+	router.POST("/profile/:userid/postUserHandle", PostUserHandle)
 
 	router.Run(":8081")
 }

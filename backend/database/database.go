@@ -15,19 +15,17 @@ func InitDB() {
 	config := NewConfig()
 
 	dbServerURL := config.DbUser + ":" + config.DbPass + "@tcp(" + config.DbServiceName + ":" + config.DbHostPort + ")/" + config.DbName
-
 	db, err := sql.Open("mysql", dbServerURL)
 	if err != nil {
 		panic(err.Error())
 	}
-	defer db.Close()
 
 	globaldb = db
 }
 
 func AddUserHandleInDB(userData User) {
-	query := "INSERT INTO Users VALUES (" + userData.Name + "," + userData.ArticleArenaHandle + "," + userData.UserHandleList[0].WebsiteHandle + "," + userData.UserHandleList[0].WebsiteHandle + ")"
-	insert, err := globaldb.Query(query)
+	query := "INSERT INTO `Users` (`UserName`, `ArticleArenaHandle`, `GeeksforgeeksHandle`, `MediumHandle`, `TutorialpointHandle`) VALUES(?,?,?,?,?)"
+	insert, err := globaldb.Query(query, userData.Name, userData.ArticleArenaHandle, userData.UserHandleList[0].WebsiteHandle, userData.UserHandleList[1].WebsiteHandle, userData.UserHandleList[2].WebsiteHandle)
 
 	// if there is an error inserting, handle it
 	if err != nil {
