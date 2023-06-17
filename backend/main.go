@@ -13,7 +13,10 @@ func main() {
 	database.InitDB()
 	router := gin.Default()
 	router.GET("/profile/:userid/getArticles", GetUserArticlesData)
-	router.POST("/profile/:userid/postUserHandle", PostUserHandle)
+	router.POST("/profile/:userid/postUserHandles", PostUserHandles)
+	router.POST("/profile/:userid/postUserInfo", PostUserInfo)
+	router.GET("/profile/:userid/getUserHandles", GetUserHandles)
+	router.GET("/profile/:userid/getUserInfo", GetUserInfo)
 
 	router.Run(":8081")
 }

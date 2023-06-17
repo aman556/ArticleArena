@@ -24,10 +24,18 @@ func GetUserArticlesData(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, allArticlesData)
 }
 
-func PostUserHandle(c *gin.Context) {
-	var userData User
-	if err := c.BindJSON(&userData); err != nil {
+func PostUserHandles(c *gin.Context) {
+	var userHandlesData UserHandles
+	if err := c.BindJSON(&userHandlesData); err != nil {
 		return
 	}
-	AddUserHandleInDB(userData)
+	AddUserHandleInDB(userHandlesData)
+}
+
+func PostUserInfo(c *gin.Context) {
+	var userInfo UserInfo
+	if err := c.BindJSON(&userInfo); err != nil {
+		return
+	}
+	AddUserInfoInDB(userInfo)
 }
