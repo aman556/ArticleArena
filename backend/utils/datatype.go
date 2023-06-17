@@ -1,6 +1,6 @@
 package utils
 
-type User struct {
+type UserHandles struct {
 	Name               string
 	ArticleArenaHandle string
 	UserHandleList     []UserHandle
@@ -9,4 +9,12 @@ type User struct {
 type UserHandle struct {
 	WebsiteName   string
 	WebsiteHandle string
+}
+
+type UserInfo struct {
+	Name               string
+	ArticleArenaHandle string
+	Email              string
+	GithubUrl          string
+	LinkedinUrl        string
 }
