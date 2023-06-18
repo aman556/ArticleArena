@@ -8,7 +8,7 @@ There will be a Leaderboard page of all the registered users. The ranking will b
 
 ## Architecture
 
-![ArticleArena Architecture](/img/Articlearena%20.png)
+![ArticleArena Architecture](img/ArticleArenaArchitecture.png)
 
 ## Tech stack
 
