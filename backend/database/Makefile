@@ -15,4 +15,4 @@ PROJECT := aman55/articlearenadb
 
 .PHONY: build database image & pushes to registry
 build-database-image: # Build docker image for backend
-	docker build --platform=linux/amd64 --tag ${PROJECT}:$(release-tag) . && docker push ${PROJECT}:$(release-tag)
+	docker build --platform=linux/amd64 --tag ${PROJECT}:$(release-tag) --no-cache . && docker push ${PROJECT}:$(release-tag)

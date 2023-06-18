@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: backend-server-article-arena-container
-          image: aman55/articlearena:59
+          image: aman55/articlearena:64
           imagePullPolicy: IfNotPresent
           resources:
             limits:
@@ -24,11 +24,11 @@ spec:
           ports:
             - containerPort: 8081
           env:
-            - name: MYSQL_ROOT_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  key: ROOT_PASSWORD
-                  name: databasesecret
+            # - name: MYSQL_ROOT_PASSWORD
+            #   valueFrom:
+            #     secretKeyRef:
+            #       key: ROOT_PASSWORD
+            #       name: databasesecret
             - name: SERVICE_NAME
               valueFrom:
                 configMapKeyRef:

@@ -4,7 +4,7 @@ set -o nounset
 set -o pipefail
 
 kubectl delete cm article-arena-cm || true
-    kubectl create -f database/database-configmap.yaml
+    kubectl create -f mysql-database/database-configmap.yaml
     if [ $? -eq 0 ]; then
       echo "Database configmap created"
     else
@@ -15,7 +15,7 @@ kubectl delete cm article-arena-cm || true
 printf "\n"
 
 kubectl delete statefulset articlearenadb-statefulset || true
-    kubectl create -f database/database-statefulset.yaml
+    kubectl create -f mysql-database/database-statefulset.yaml
     if [ $? -eq 0 ]; then
       echo "Database statefulset created"
     else
@@ -26,7 +26,7 @@ kubectl delete statefulset articlearenadb-statefulset || true
 printf "\n"
 
 kubectl delete svc articlearenadb-svc || true
-    kubectl create -f database/database-service.yaml
+    kubectl create -f mysql-database/database-service.yaml
     if [[ $? -eq 0 ]]; then
       echo "Database Service created"
     else
