@@ -6,6 +6,10 @@ ArticleArena is a website where content writers create profile and add there use
 
 There will be a Leaderboard page of all the registered users. The ranking will be decided on the basis of an algorithm.
 
+## Architecture
+
+![ArticleArena Architecture](/img/Articlearena%20.png)
+
 ## Tech stack
 
 - The devlopment of the site is currently using two languages. `React` for frontend and `golang` for backend.
