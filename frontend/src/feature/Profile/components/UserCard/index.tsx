@@ -1,5 +1,5 @@
 import React from 'react';
-import userDefault from './../../../../constants/userDefault.png';
+import userDefault from '../../../../constants/userDefault.png';
 import { Box } from '@mui/material';
 import useStyles from './styles';
 import InfoPair from '../../../../components/InfoPair';
@@ -12,10 +12,21 @@ export interface IUserCard {
 
 const UserCard: React.FC<IUserCard> = (props) => {
   const styles = useStyles();
+  const imageURL = 'https://images.unsplash.com/photo-1533035350251-aa8b8e208d95';
 
   return (
-    <Box className={styles.container}>
-      <img src={userDefault} height={500} width={500} />
+    <Box
+        component="div"
+        sx={{
+          position: 'absolute',
+          width: '100%',
+          backgroundImage: `url(${imageURL})`,
+          backgroundPosition: 'center',
+          backgroundSize: 'cover',
+        }}
+        className={styles.container}
+      >
+      <img src={userDefault} height={250} width={250} className={styles.imageStyles} alt='Kartikay ki fotu'/>
       <Box className={styles.additionalText}>
         <InfoPair title={props.name} classes={{ title: styles.titleText }} />
         <InfoPair title={props.designation} />

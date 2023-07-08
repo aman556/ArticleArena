@@ -13,7 +13,6 @@ const Profile: React.FC = () => {
         address={'San Francisco, CA'}
         designation={'Full Stack Developer'}
       />
-      {/* <UserCard /> */}
     </Box>
   );
 };
