@@ -19,10 +19,12 @@ const UserCard: React.FC<IUserCard> = (props) => {
         component="div"
         sx={{
           position: 'absolute',
-          width: '100%',
+          width: '99%',
+          height: '98%',
           backgroundImage: `url(${imageURL})`,
           backgroundPosition: 'center',
           backgroundSize: 'cover',
+          zIndex: '-1'
         }}
         className={styles.container}
       >
