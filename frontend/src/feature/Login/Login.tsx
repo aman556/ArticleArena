@@ -1,7 +1,8 @@
 import React from "react"
 import useStyles from "./styles";
-import { NavLink, useHref } from "react-router-dom";
+import { NavLink} from "react-router-dom";
 import userimage from './Images/user.png'
+import GoogleSignUp from "./GoogleSignUp";
 
 const Login: React.FC =() => {
     const styles = useStyles();
@@ -9,7 +10,7 @@ const Login: React.FC =() => {
   return (
     <div className={styles.position}>
         <form className={styles.container}>
-            <img src={userimage} className={styles.userimage}></img>
+            <img src={userimage} className={styles.userimage} alt=""></img>
             <div className={styles.email}>
                 <label>Email </label>
                 <input className= {styles.inputfield} type="email" placeholder="Enter your email" autoComplete="off"></input>
@@ -26,6 +27,8 @@ const Login: React.FC =() => {
                     <button type="button">SignUp</button>
                 </NavLink>
             </div>
+            <div>OR</div>
+            <GoogleSignUp />
         </form>
     </div>
     )
