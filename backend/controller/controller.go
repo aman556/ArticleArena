@@ -39,3 +39,7 @@ func PostUserInfo(c *gin.Context) {
 	}
 	AddUserInfoInDB(userInfo)
 }
+
+func GetUserInfoData(c *gin.Context) {
+
+}

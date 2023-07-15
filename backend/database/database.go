@@ -1,50 +1,114 @@
 package database
 
 import (
-	"database/sql"
+	//"database/sql"
 
-	_ "github.com/go-sql-driver/mysql"
+	//_ "github.com/go-sql-driver/mysql"
 
-	. "github.com/aman556/ArticleArena/backend/database/DAO"
+	"context"
+	"fmt"
+	"reflect"
+	"time"
+
+	// . "github.com/aman556/ArticleArena/backend/database/DAO"
 	. "github.com/aman556/ArticleArena/backend/utils"
+
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-var globaldb *sql.DB
+func ConnectDB() (*mongo.Client, context.CancelFunc) {
+	// config := NewConfig()
+	// credential := options.Credential{
+	// 	AuthSource: config.DbName,
+	// 	Username:   config.DbUser,
+	// 	Password:   config.DbPass,
+	// }
 
-func InitDB() {
-	config := NewConfig()
+	ctx, cancel := context.WithTimeout(context.Background(),
+		30*time.Second)
 
-	dbServerURL := config.DbUser + ":" + config.DbPass + "@tcp(" + config.DbServiceName + ":" + config.DbHostPort + ")/" + config.DbName
-	db, err := sql.Open("mysql", dbServerURL)
+	// Use the SetServerAPIOptions() method to set the Stable API version to 1
+	serverAPI := options.ServerAPI(options.ServerAPIVersion1)
+	opts := options.Client().ApplyURI("mongodb+srv://AmanSharma:8512810555@cluster0.wsuuloc.mongodb.net/?retryWrites=true&w=majority").SetServerAPIOptions(serverAPI)
+	// Create a new client and connect to the server
+	client, err := mongo.Connect(ctx, opts)
 	if err != nil {
-		panic(err.Error())
+		panic(err)
 	}
 
-	globaldb = db
+	// Send a ping to confirm a successful connection
+	if err := client.Database("admin").RunCommand(context.TODO(), bson.D{{"ping", 1}}).Err(); err != nil {
+		panic(err)
+	}
+	fmt.Println("Pinged your deployment. You successfully connected to MongoDB!")
+
+	return client, cancel
 }
 
 func AddUserHandleInDB(userData UserHandles) {
-	query := "INSERT INTO `UserHandles` (`ArticleArenaHandle`, `GeeksforgeeksHandle`, `MediumHandle`, `TutorialpointHandle`) VALUES(?,?,?,?,?)"
-	insert, err := globaldb.Query(query, userData.ArticleArenaHandle, userData.UserHandleList[0].WebsiteHandle, userData.UserHandleList[1].WebsiteHandle, userData.UserHandleList[2].WebsiteHandle)
+	// Declare Context type object for managing multiple API requests
+	ctx, CancelFunc := context.WithTimeout(context.Background(), 15*time.Second)
+	defer CancelFunc()
 
-	// if there is an error inserting, handle it
-	if err != nil {
-		panic(err.Error())
+	// Access a MongoDB collection through a database
+	client, _ := ConnectDB()
+	defer func() {
+		if err := client.Disconnect(context.TODO()); err != nil {
+			panic(err)
+		}
+	}()
+	col := client.Database("article_arena_database").Collection("UserHandles")
+	fmt.Println("Collection type:", reflect.TypeOf(col))
+	fmt.Println("oneDoc TYPE:", reflect.TypeOf(userData))
+
+	// InsertOne() method Returns mongo.InsertOneResult
+	result, insertErr := col.InsertOne(ctx, userData)
+	if insertErr != nil {
+		fmt.Println("InsertOne ERROR:", insertErr)
+		panic(insertErr)
+	} else {
+		fmt.Println("InsertOne() result type: ", reflect.TypeOf(result))
+		fmt.Println("InsertOne() API result:", result)
+
+		// get the inserted ID string
+		newID := result.InsertedID
+		fmt.Println("InsertOne() newID:", newID)
+		fmt.Println("InsertOne() newID type:", reflect.TypeOf(newID))
 	}
-	// be careful deferring Queries if you are using transactions
-	defer insert.Close()
 }
 
 func AddUserInfoInDB(userInfo UserInfo) {
-	query := "INSERT INTO `UserInfo` (`UserName`, `ArticleArenaHandle`, `Email`, `GithubUrl`, `LinkedinUrl`) VALUES(?,?,?,?,?)"
-	insert, err := globaldb.Query(query, userInfo.Name, userInfo.ArticleArenaHandle, userInfo.Email, userInfo.GithubUrl, userInfo.LinkedinUrl)
+	// Declare Context type object for managing multiple API requests
+	ctx, CancelFunc := context.WithTimeout(context.Background(), 15*time.Second)
+	defer CancelFunc()
 
-	// if there is an error inserting, handle it
-	if err != nil {
-		panic(err.Error())
+	// Access a MongoDB collection through a database
+	client, _ := ConnectDB()
+	defer func() {
+		if err := client.Disconnect(context.TODO()); err != nil {
+			panic(err)
+		}
+	}()
+	col := client.Database("article_arena_database").Collection("UserInfo")
+	fmt.Println("Collection type:", reflect.TypeOf(col))
+	fmt.Println("oneDoc TYPE:", reflect.TypeOf(userInfo))
+
+	// InsertOne() method Returns mongo.InsertOneResult
+	result, insertErr := col.InsertOne(ctx, userInfo)
+	if insertErr != nil {
+		fmt.Println("InsertOne ERROR:", insertErr)
+		panic(insertErr)
+	} else {
+		fmt.Println("InsertOne() result type: ", reflect.TypeOf(result))
+		fmt.Println("InsertOne() API result:", result)
+
+		// get the inserted ID string
+		newID := result.InsertedID
+		fmt.Println("InsertOne() newID:", newID)
+		fmt.Println("InsertOne() newID type:", reflect.TypeOf(newID))
 	}
-	// be careful deferring Queries if you are using transactions
-	defer insert.Close()
 }
 
 func SelectUserInfoInDB(userHandle string) {
