@@ -6,81 +6,68 @@ import (
 	//_ "github.com/go-sql-driver/mysql"
 
 	"context"
-	"database/sql"
 	"fmt"
-	"log"
-	"os"
 	"reflect"
 	"time"
 
-	//. "github.com/aman556/ArticleArena/backend/database/DAO"
+	// . "github.com/aman556/ArticleArena/backend/database/DAO"
 	. "github.com/aman556/ArticleArena/backend/utils"
 
-	// Official 'mongo-go-driver' packages
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-var globaldb *sql.DB
-var globalClient *mongo.Client
+func ConnectDB() (*mongo.Client, context.CancelFunc) {
+	// config := NewConfig()
+	// credential := options.Credential{
+	// 	AuthSource: config.DbName,
+	// 	Username:   config.DbUser,
+	// 	Password:   config.DbPass,
+	// }
 
-// func InitDB() {
-// 	config := NewConfig()
+	ctx, cancel := context.WithTimeout(context.Background(),
+		30*time.Second)
 
-// 	dbServerURL := config.DbUser + ":" + config.DbPass + "@tcp(" + config.DbServiceName + ":" + config.DbHostPort + ")/" + config.DbName
-// 	db, err := sql.Open("mysql", dbServerURL)
-// 	if err != nil {
-// 		panic(err.Error())
-// 	}
-
-// 	globaldb = db
-// }
-
-func InitDB() {
-	// Declare host and port options to pass to the Connect() method
-	clientOptions := options.Client().ApplyURI("mongodb://mongo:27017")
-	fmt.Println("clientOptions TYPE:", reflect.TypeOf(clientOptions), "\n")
-
-	// Connect to the MongoDB and return Client instance
-	client, err := mongo.Connect(context.TODO(), clientOptions)
+	// Use the SetServerAPIOptions() method to set the Stable API version to 1
+	serverAPI := options.ServerAPI(options.ServerAPIVersion1)
+	opts := options.Client().ApplyURI("mongodb+srv://AmanSharma:8512810555@cluster0.wsuuloc.mongodb.net/?retryWrites=true&w=majority").SetServerAPIOptions(serverAPI)
+	// Create a new client and connect to the server
+	client, err := mongo.Connect(ctx, opts)
 	if err != nil {
-		fmt.Println("mongo.Connect() ERROR:", err)
-		os.Exit(1)
-	}
-	globalClient = client
-	// Check the connection
-	err = client.Ping(context.TODO(), nil)
-	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 
-	fmt.Println("Connected to MongoDB!")
+	// Send a ping to confirm a successful connection
+	if err := client.Database("admin").RunCommand(context.TODO(), bson.D{{"ping", 1}}).Err(); err != nil {
+		panic(err)
+	}
+	fmt.Println("Pinged your deployment. You successfully connected to MongoDB!")
+
+	return client, cancel
 }
 
 func AddUserHandleInDB(userData UserHandles) {
-	// query := "INSERT INTO `UserHandles` (`ArticleArenaHandle`, `GeeksforgeeksHandle`, `MediumHandle`, `TutorialpointHandle`) VALUES(?,?,?,?,?)"
-	// insert, err := globaldb.Query(query, userData.ArticleArenaHandle, userData.UserHandleList[0].WebsiteHandle, userData.UserHandleList[1].WebsiteHandle, userData.UserHandleList[2].WebsiteHandle)
-
-	// // if there is an error inserting, handle it
-	// if err != nil {
-	// 	panic(err.Error())
-	// }
-	// // be careful deferring Queries if you are using transactions
-	// defer insert.Close()
 	// Declare Context type object for managing multiple API requests
-	ctx, _ := context.WithTimeout(context.Background(), 15*time.Second)
+	ctx, CancelFunc := context.WithTimeout(context.Background(), 15*time.Second)
+	defer CancelFunc()
 
 	// Access a MongoDB collection through a database
-	col := globalClient.Database("article_arena_database").Collection("UserHandles")
-	fmt.Println("Collection type:", reflect.TypeOf(col), "\n")
-
-	fmt.Println("oneDoc TYPE:", reflect.TypeOf(userData), "\n")
+	client, _ := ConnectDB()
+	defer func() {
+		if err := client.Disconnect(context.TODO()); err != nil {
+			panic(err)
+		}
+	}()
+	col := client.Database("article_arena_database").Collection("UserHandles")
+	fmt.Println("Collection type:", reflect.TypeOf(col))
+	fmt.Println("oneDoc TYPE:", reflect.TypeOf(userData))
 
 	// InsertOne() method Returns mongo.InsertOneResult
 	result, insertErr := col.InsertOne(ctx, userData)
 	if insertErr != nil {
 		fmt.Println("InsertOne ERROR:", insertErr)
-		os.Exit(1) // safely exit script on error
+		panic(insertErr)
 	} else {
 		fmt.Println("InsertOne() result type: ", reflect.TypeOf(result))
 		fmt.Println("InsertOne() API result:", result)
@@ -93,15 +80,35 @@ func AddUserHandleInDB(userData UserHandles) {
 }
 
 func AddUserInfoInDB(userInfo UserInfo) {
-	query := "INSERT INTO `UserInfo` (`UserName`, `ArticleArenaHandle`, `Email`, `GithubUrl`, `LinkedinUrl`) VALUES(?,?,?,?,?)"
-	insert, err := globaldb.Query(query, userInfo.Name, userInfo.ArticleArenaHandle, userInfo.Email, userInfo.GithubUrl, userInfo.LinkedinUrl)
+	// Declare Context type object for managing multiple API requests
+	ctx, CancelFunc := context.WithTimeout(context.Background(), 15*time.Second)
+	defer CancelFunc()
 
-	// if there is an error inserting, handle it
-	if err != nil {
-		panic(err.Error())
+	// Access a MongoDB collection through a database
+	client, _ := ConnectDB()
+	defer func() {
+		if err := client.Disconnect(context.TODO()); err != nil {
+			panic(err)
+		}
+	}()
+	col := client.Database("article_arena_database").Collection("UserInfo")
+	fmt.Println("Collection type:", reflect.TypeOf(col))
+	fmt.Println("oneDoc TYPE:", reflect.TypeOf(userInfo))
+
+	// InsertOne() method Returns mongo.InsertOneResult
+	result, insertErr := col.InsertOne(ctx, userInfo)
+	if insertErr != nil {
+		fmt.Println("InsertOne ERROR:", insertErr)
+		panic(insertErr)
+	} else {
+		fmt.Println("InsertOne() result type: ", reflect.TypeOf(result))
+		fmt.Println("InsertOne() API result:", result)
+
+		// get the inserted ID string
+		newID := result.InsertedID
+		fmt.Println("InsertOne() newID:", newID)
+		fmt.Println("InsertOne() newID type:", reflect.TypeOf(newID))
 	}
-	// be careful deferring Queries if you are using transactions
-	defer insert.Close()
 }
 
 func SelectUserInfoInDB(userHandle string) {

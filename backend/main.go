@@ -5,17 +5,10 @@ import (
 	//"github.com/go-co-op/gocron"
 
 	. "github.com/aman556/ArticleArena/backend/controller"
-	"github.com/aman556/ArticleArena/backend/database"
 	"github.com/gin-gonic/gin"
 )
 
-func ConnectMiddleware(c *gin.Context) {
-	c.Set("db", Session.DB(Mongo.Database))
-	c.Next()
-}
-
 func main() {
-	database.InitDB()
 	router := gin.Default()
 	router.GET("/profile/:userid/getArticles", GetUserArticlesData)
 	router.POST("/profile/:userid/postUserHandles", PostUserHandles)

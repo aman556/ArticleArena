@@ -23,4 +23,4 @@ run-server: ## Build and run server
 
 .PHONY: build server image & pushes to registry
 build-server-image: # Build docker image for backend
-	docker build --platform=linux/amd64 --tag ${PROJECT}:$(release-tag) backend && docker push ${PROJECT}:$(release-tag)
+	docker build --platform=linux/amd64 --no-cache --tag ${PROJECT}:$(release-tag) backend && docker push ${PROJECT}:$(release-tag)

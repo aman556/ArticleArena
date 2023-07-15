@@ -2,20 +2,27 @@
 
 set -o nounset
 set -o pipefail
+# set -e
 
-kubectl delete cm article-arena-cm || true
-    kubectl create -f mysql-database/database-configmap.yaml
+RELEASE_TAG="$1"
+make -C ../ build-server-image release-tag="${RELEASE_TAG}"
+
+sed -i '' "s/articlearena:.*/articlearena:${RELEASE_TAG}/g" backend-server/backend-server-deployment.yaml
+
+
+kubectl delete ServiceAccount mongo-account && kubectl delete ClusterRole mongo-role && kubectl delete ClusterRoleBinding mongo_role_binding || true
+    kubectl create -f mongo-db-database/rbac.yaml
     if [ $? -eq 0 ]; then
-      echo "Database configmap created"
+      echo "Database rbac created"
     else
-      echo "Failed to create Database configmap."
+      echo "Failed to create rbac."
       exit 1
     fi
 
 printf "\n"
 
-kubectl delete statefulset articlearenadb-statefulset || true
-    kubectl create -f mysql-database/database-statefulset.yaml
+kubectl delete statefulset mongodb-database || true
+    kubectl create -f mongo-db-database/statefulset.yaml
     if [ $? -eq 0 ]; then
       echo "Database statefulset created"
     else
@@ -25,8 +32,8 @@ kubectl delete statefulset articlearenadb-statefulset || true
 
 printf "\n"
 
-kubectl delete svc articlearenadb-svc || true
-    kubectl create -f mysql-database/database-service.yaml
+kubectl delete svc mongo || true
+    kubectl create -f mongo-db-database/service.yaml
     if [[ $? -eq 0 ]]; then
       echo "Database Service created"
     else
@@ -35,6 +42,8 @@ kubectl delete svc articlearenadb-svc || true
     fi
 
 printf "\n"
+
+sleep 30s
 
 kubectl delete deployment backend-server-deployment-article-arena || true
     kubectl create -f backend-server/backend-server-deployment.yaml
@@ -56,8 +65,6 @@ kubectl create -f backend-server/backend-server-service.yaml
       exit 1
     fi
 
-# EXIT_CODE="$(kubectl port-forward )"
-# if [[ ${EXIT_CODE} != "0" ]]; then
-#   echo "Failed to create backend-server-service."
-#   exit "${EXIT_CODE}"
-# fi
+BACKEND_SERVER_POD="$(kubectl get pod | grep backend-server-deployment-article-arena | awk '{print $1}')"
+kubectl port-forward "${BACKEND_SERVER_POD}" 8081:8081 
+

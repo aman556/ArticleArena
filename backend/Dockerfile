@@ -6,7 +6,7 @@ COPY . .
 
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o bin/articleArena-server .
 
-FROM debian:11.5
+FROM --platform=linux/amd64 debian:latest
 
 RUN apt update \
     && apt install -y --no-install-recommends \

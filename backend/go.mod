@@ -3,7 +3,6 @@ module github.com/aman556/ArticleArena/backend
 go 1.19
 
 require (
-	github.com/aman556/ArticleArena v0.0.0-20230520082128-36d828134c95
 	github.com/gin-gonic/gin v1.9.0
 	github.com/gocolly/colly v1.2.0
 )

@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: backend-server-article-arena-container
-          image: aman55/articlearena:64
+          image: aman55/articlearena:v3.2.8
           imagePullPolicy: IfNotPresent
           resources:
             limits:
@@ -24,28 +24,28 @@ spec:
           ports:
             - containerPort: 8081
           env:
-            # - name: MYSQL_ROOT_PASSWORD
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: mongo-creds
+            # - name: SERVICE_NAME
+            #   valueFrom:
+            #     configMapKeyRef:
+            #       key: servicename
+            #       name: article-arena-cm
+            # - name: CONFIG_DBNAME
             #   valueFrom:
             #     secretKeyRef:
-            #       key: ROOT_PASSWORD
-            #       name: databasesecret
-            - name: SERVICE_NAME
+            #       key: dbname
+            #       name: article-arena-cm
+            - name: MONGO_INITDB_ROOT_USERNAME
               valueFrom:
-                configMapKeyRef:
-                  key: servicename
-                  name: article-arena-cm
-            - name: CONFIG_DBNAME
-              valueFrom:
-                configMapKeyRef:
-                  key: dbname
-                  name: article-arena-cm
-            - name: CONFIG_DBUSER
-              valueFrom:
-                configMapKeyRef:
-                  key: dbuser
-                  name: article-arena-cm
-            - name: CONFIG_DBHOST_PORT
-              valueFrom:
-                configMapKeyRef:
-                  key: dbhostport
-                  name: article-arena-cm
+                secretKeyRef:
+                  key: username
+                  name: mongo-creds
+            # - name: CONFIG_DBHOST_PORT
+            #   valueFrom:
+            #     configMapKeyRef:
+            #       key: dbhostport
+            #       name: article-arena-cm
