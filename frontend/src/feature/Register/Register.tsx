@@ -2,6 +2,7 @@ import React from "react"
 import useStyles from "./styles"
 import { NavLink } from "react-router-dom";
 import userimage from "./Images/note.png"
+import GoogleSignUp from "../Login/GoogleSignUp";
 
 const Register: React.FC =() => {
     const styles= useStyles();
@@ -28,10 +29,13 @@ const Register: React.FC =() => {
                 <div className={styles.login}>
                     <button type="button"> Register</button>
                 </div>
-                <div>
+                <div className={styles.login}>
                     <NavLink to='/login'>
                         <button type="button">Back To Login</button>
                     </NavLink>
+                </div>
+                <div>
+                    <GoogleSignUp/>
                 </div>
             </form>
         </div>
