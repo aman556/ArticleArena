@@ -8,7 +8,7 @@ const LogoutButton: React.FC = () => {
     return (
         <div className={styles.logout}>
             <NavLink to="/">
-                <button type="button" onClickCapture={Logout}>LogOut</button>
+                <Button type="button" onClickCapture={Logout}>LogOut</Button>
             </NavLink>
         </div>
     )
