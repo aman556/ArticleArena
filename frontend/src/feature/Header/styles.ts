@@ -1,8 +1,9 @@
 import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({
-    logut: {
-            marginLeft: 'auto'
+    logout: {
+            marginLeft: 'auto',
+            textAlign: 'right',
       },
 }));
 

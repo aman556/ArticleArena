@@ -1,27 +1,25 @@
 import makeStyles from '@mui/styles/makeStyles';
 
 const useStyles = makeStyles((theme) => ({
-  container: {
+  usercard: {
     display: 'flex',
-    flex: 1,
     flexDirection: 'column',
-    alignItems: 'center',
-    height: 800,
   },
   additionalText: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
     alignItems: 'center',
-    background: 'white',
-    marginTop: '5%',
-    width : '20%',
+    width : '100%',
   },
   titleText: {
     fontFamily: 'sans-serif',
     fontSize: 12,
   },
-  imageStyles: { border: 1, borderRadius: 250, marginTop: '5%' },
+  imageStyles: { border: 1, borderRadius: 250, margin: '5%' },
+  cls_button: {
+    padding: "5%",
+    
+  }
 }));
 
 export default useStyles;
